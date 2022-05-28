@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/iguatemigarin/sandbox#readme",
   "dependencies": {
+    "@sentry/browser": "^6.19.7",
+    "@sentry/tracing": "^6.19.7",
+    "@types/node": "^17.0.36",
     "parcel": "^2.6.0"
   }
 }
