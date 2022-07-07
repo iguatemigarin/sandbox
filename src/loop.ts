@@ -1,9 +1,8 @@
-import { canvas, ctx, updateCanvasSize } from './canvas';
+import { resetCanvas } from './canvas';
 import { renderTree } from './render-tree';
 
 export const loop = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  updateCanvasSize();
+  resetCanvas();
   renderTree.render();
 
   requestAnimationFrame(loop);

@@ -1,19 +1,28 @@
 import { ctx } from './canvas';
-import { Renderable, renderTree } from './render-tree';
+import { Renderable } from './renderable';
 import type { Point } from './point';
+import { Stage } from './stage';
 
-export class Ball extends Renderable {
+export class Ball implements Renderable {
+  children: Renderable[];
+
   constructor(
     public id: string,
     public radius: number = 1,
     public center: Point = [0, 0]
-  ) {
-    super(id);
-  }
+  ) {}
 
-  render() {
+  render(stage: Stage) {
+    ctx.translate(...stage.origin);
     ctx.beginPath();
-    ctx.arc(this.center[0], this.center[1], this.radius, 0, 0);
+    ctx.arc(
+      this.center[0] * stage.unit,
+      this.center[1] * stage.unit,
+      this.radius * stage.unit,
+      0,
+      360
+    );
     ctx.fill();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 }

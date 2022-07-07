@@ -1,9 +1,9 @@
 import { ctx } from './canvas';
-import { Renderable, renderTree } from './render-tree';
+import { Renderable } from './renderable';
 
 const UPDATE_FREQUENCY = 2; // in Hz
 
-class FPS extends Renderable {
+export class FPS implements Renderable {
   tick: number = Date.now();
   now: number = Date.now();
   msSinceLastCount: number = 0;
@@ -16,12 +16,10 @@ class FPS extends Renderable {
 
     if (this.shouldResetFPSCounter()) {
       this.resetFPSCounter();
-    } else {
-      this.incrementFPSCounter();
     }
 
+    this.incrementFPSCounter();
     this.updateTick();
-
     this.drawText();
   }
 
@@ -42,7 +40,7 @@ class FPS extends Renderable {
   }
 
   resetFPSCounter() {
-    this.text = (this.framesInS * UPDATE_FREQUENCY).toString();
+    this.text = (this.framesInS * UPDATE_FREQUENCY).toString() + 'fps';
     this.msSinceLastCount = 0;
     this.framesInS = 0;
   }
@@ -52,12 +50,7 @@ class FPS extends Renderable {
   }
 
   drawText() {
-    ctx.font = '48px sans-serif';
+    ctx.font = '24px sans-serif';
     ctx.fillText(this.text, 10, 50);
   }
 }
-
-export const initFps = () => {
-  const fps = new FPS('fps');
-  renderTree.children.push(fps);
-};
